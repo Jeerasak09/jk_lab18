@@ -1,12 +1,20 @@
-#include<iostream>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-struct Rect{
-	double x,y,w,h;
+struct Rect {
+    double x, y, w, h;
 };
 
-double overlap(){
+double overlap(Rect r1, Rect r2) {
+    double x_overlap = min(r1.x + r1.w, r2.x + r2.w) - max(r1.x, r2.x);
+    double r1_bottom = r1.y - r1.h;
+    double r2_bottom = r2.y - r2.h;
+    double y_overlap = min(r1.y, r2.y) - max(r1_bottom, r2_bottom);
 
+    if (x_overlap <= 0 || y_overlap <= 0) {
+        return 0;
+    }
 
-
+    return x_overlap * y_overlap;
 }
